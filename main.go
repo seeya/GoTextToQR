@@ -1,6 +1,7 @@
 package main
 
 import (
+  "os"
   "fmt"
   "net/http"
   "log"
@@ -33,6 +34,15 @@ func main() {
     w.Write(png)
   })
   
-  log.Fatal(http.ListenAndServe(":8080", nil))
+  
+  log.Fatal(http.ListenAndServe(getPort(), nil))
+}
+
+func getPort() string {
+  p := os.Getenv("PORT")
+  if p != "" {
+    return ":" + p
+  }
+  return ":8080"
 }
 
